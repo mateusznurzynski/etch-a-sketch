@@ -11,6 +11,10 @@ form.addEventListener('submit', submitForm);
 setGrid(segmentsNumber);
 
 function setGrid(segmentsNumber) {
+  if (segmentsNumber > 100) {
+    alert('Maximum size of the grid is 100!');
+    return;
+  }
   let allSegments = document.querySelectorAll('.segment');
   allSegments.forEach((segment) => {
     segment.remove();
