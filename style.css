@@ -27,7 +27,5 @@ h1 {
 }
 .segment {
   background-color: white;
-  width: calc(100% / 16);
-  width: calc(100% / 16);
   border: 1px black solid;
 }
