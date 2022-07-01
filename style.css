@@ -24,8 +24,53 @@ h1 {
   flex-wrap: wrap;
   height: 500px;
   width: 500px;
+  flex-shrink: 0;
 }
 .segment {
   background-color: white;
   border: 1px black solid;
+}
+.flex {
+  display: flex;
+  width: 100%;
+}
+.menu {
+  margin: 0 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 2px goldenrod solid;
+  padding: 20px;
+}
+.menu form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.menu input {
+  padding: 7px;
+}
+
+.menu label {
+  font-size: 120%;
+}
+.menu input[type*='button'] {
+  margin-top: auto;
+  padding: 10px 0;
+  border: none;
+  color: white;
+  background-color: rgb(71, 71, 71);
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.menu input[type*='button']:hover {
+  background-color: rgb(53, 53, 53);
+  transition: all 0.15s;
+}
+.menu h2 {
+  margin-bottom: 30px;
 }
