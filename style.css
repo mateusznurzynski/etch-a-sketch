@@ -28,7 +28,6 @@ h1 {
 }
 .segment {
   background-color: white;
-  border: 1px black solid;
 }
 .flex {
   display: flex;
