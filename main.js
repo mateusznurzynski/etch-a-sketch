@@ -3,14 +3,15 @@ const segment = document.createElement('div');
 const form = document.querySelector('.grid-edit');
 segment.classList.add('segment');
 let segmentsNumber = 16;
+let colorType;
 segment.style.width = `calc(100%/${segmentsNumber})`;
 segment.style.height = `calc(100%/${segmentsNumber})`;
 
 form.addEventListener('submit', submitForm);
 
-setGrid(segmentsNumber);
+setGrid(segmentsNumber, 'black');
 
-function setGrid(segmentsNumber) {
+function setGrid(segmentsNumber, colorType) {
   if (segmentsNumber > 100) {
     alert('Maximum size of the grid is 100!');
     return;
@@ -24,17 +25,16 @@ function setGrid(segmentsNumber) {
   for (let i = 0; i < segmentsNumber ** 2; i++) {
     container.appendChild(segment.cloneNode(true));
   }
-  allSegments = document.querySelectorAll('.segment');
-  allSegments.forEach((segment) => {
-    segment.addEventListener('mouseenter', paintSegment);
-  });
+  paintSegments(colorType);
 }
 
 function submitForm(e) {
-  const sizeNumberInput = document.querySelector('#size-number');
   e.preventDefault();
-  console.log(sizeNumberInput.value);
-  setGrid(sizeNumberInput.value);
+  const sizeNumberInput = document.querySelector('#size-number');
+  const colorTypeInputs = document.querySelectorAll('.color-type');
+  colorType = getCheckedValue(colorTypeInputs);
+  console.log(colorType);
+  setGrid(sizeNumberInput.value, colorType);
   clearInputs(sizeNumberInput);
 }
 
@@ -44,6 +44,22 @@ function clearInputs(...inputs) {
   });
 }
 
-function paintSegment(e, type = 'black') {
-  e.currentTarget.style.backgroundColor = type;
+function paintSegments(colorType = 'black') {
+  allSegments = document.querySelectorAll('.segment');
+  allSegments.forEach((segment) => {
+    segment.addEventListener('mouseenter', (e) => {
+      e.currentTarget.style.backgroundColor = colorType;
+    });
+  });
+  //   e.currentTarget.style.backgroundColor = type;
+}
+
+function getCheckedValue(inputs) {
+  let checkedValue = 'black';
+  inputs.forEach((input) => {
+    if (input.checked) {
+      checkedValue = input.value;
+    }
+  });
+  return checkedValue;
 }

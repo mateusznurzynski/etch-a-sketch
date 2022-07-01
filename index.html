@@ -17,6 +17,29 @@
             <label for="size-number">Grid size (max. 100): </label
             ><input type="number" id="size-number" />
           </div>
+          <p>Choose coloring type:</p>
+          <div class="flex color-type-container">
+            <input
+              type="radio"
+              name="color-type"
+              id="color-black"
+              class="color-type"
+              value="black"
+              checked
+            />
+            <label for="color-black">Black</label>
+          </div>
+
+          <div class="flex color-type-container">
+            <input
+              type="radio"
+              name="color-type"
+              id="color-rainbow"
+              class="color-type"
+              value="yellow"
+            />
+            <label for="color-rainbow">Rainbow</label>
+          </div>
 
           <input type="submit" value="Create new grid!" />
         </form>
