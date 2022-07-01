@@ -11,7 +11,7 @@ form.addEventListener('submit', submitForm);
 setGrid(segmentsNumber);
 
 function setGrid(segmentsNumber) {
-  const allSegments = document.querySelectorAll('.segment');
+  let allSegments = document.querySelectorAll('.segment');
   allSegments.forEach((segment) => {
     segment.remove();
   });
@@ -20,6 +20,10 @@ function setGrid(segmentsNumber) {
   for (let i = 0; i < segmentsNumber ** 2; i++) {
     container.appendChild(segment.cloneNode(true));
   }
+  allSegments = document.querySelectorAll('.segment');
+  allSegments.forEach((segment) => {
+    segment.addEventListener('mouseenter', paintSegment);
+  });
 }
 
 function submitForm(e) {
@@ -34,4 +38,8 @@ function clearInputs(...inputs) {
   inputs.forEach((input) => {
     input.value = '';
   });
+}
+
+function paintSegment(e, type = 'black') {
+  e.currentTarget.style.backgroundColor = type;
 }
