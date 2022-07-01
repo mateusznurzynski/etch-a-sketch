@@ -3,7 +3,10 @@ const segment = document.createElement('div');
 const form = document.querySelector('.grid-edit');
 segment.classList.add('segment');
 let segmentsNumber = 16;
-let colorType;
+let colorType = {
+  value: 'black',
+  type: 'normal',
+};
 segment.style.width = `calc(100%/${segmentsNumber})`;
 segment.style.height = `calc(100%/${segmentsNumber})`;
 
@@ -11,7 +14,7 @@ form.addEventListener('submit', submitForm);
 
 setGrid(segmentsNumber, 'black');
 
-function setGrid(segmentsNumber, colorType) {
+function setGrid(segmentsNumber) {
   if (segmentsNumber > 100) {
     alert('Maximum size of the grid is 100!');
     return;
@@ -25,16 +28,16 @@ function setGrid(segmentsNumber, colorType) {
   for (let i = 0; i < segmentsNumber ** 2; i++) {
     container.appendChild(segment.cloneNode(true));
   }
-  paintSegments(colorType);
+  paintSegments();
 }
 
 function submitForm(e) {
   e.preventDefault();
   const sizeNumberInput = document.querySelector('#size-number');
   const colorTypeInputs = document.querySelectorAll('.color-type');
-  colorType = getCheckedValue(colorTypeInputs);
+  setColorType(colorTypeInputs);
   console.log(colorType);
-  setGrid(sizeNumberInput.value, colorType);
+  setGrid(sizeNumberInput.value);
   clearInputs(sizeNumberInput);
 }
 
@@ -44,22 +47,49 @@ function clearInputs(...inputs) {
   });
 }
 
-function paintSegments(colorType = 'black') {
+function paintSegments() {
   allSegments = document.querySelectorAll('.segment');
-  allSegments.forEach((segment) => {
-    segment.addEventListener('mouseenter', (e) => {
-      e.currentTarget.style.backgroundColor = colorType;
+  if (colorType.type === 'normal') {
+    allSegments.forEach((segment) => {
+      segment.addEventListener('mouseenter', (e) => {
+        e.currentTarget.style.backgroundColor = colorType.value;
+      });
     });
-  });
-  //   e.currentTarget.style.backgroundColor = type;
+  } else if (colorType.type === 'rainbow') {
+    allSegments.forEach((segment) => {
+      segment.addEventListener('mouseenter', setRandomColor);
+    });
+  }
 }
 
-function getCheckedValue(inputs) {
+function setRandomColor(e) {
+  const randomColor = (colorType.value = `rgb(${getRandomNumber(
+    255
+  )}, ${getRandomNumber(255)}, ${getRandomNumber(255)})`);
+  colorType.value = randomColor;
+  allSegments.forEach((segment) => {
+    segment.addEventListener('mouseenter', (e) => {
+      e.currentTarget.style.backgroundColor = colorType.value;
+    });
+  });
+}
+
+function getRandomNumber(max) {
+  const output = Math.floor(Math.random() * max).toFixed(0);
+  return output;
+}
+
+function setColorType(inputs) {
   let checkedValue = 'black';
   inputs.forEach((input) => {
     if (input.checked) {
       checkedValue = input.value;
     }
   });
-  return checkedValue;
+  if (checkedValue === 'rainbow') {
+    colorType.type = checkedValue;
+    return;
+  }
+  colorType.type = 'normal';
+  colorType.value = checkedValue;
 }
