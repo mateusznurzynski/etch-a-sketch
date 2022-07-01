@@ -57,7 +57,7 @@ h1 {
 .menu label {
   font-size: 120%;
 }
-.menu input[type*='button'] {
+.menu input[type*='submit'] {
   margin-top: auto;
   padding: 10px 0;
   border: none;
@@ -67,7 +67,7 @@ h1 {
   cursor: pointer;
   transition: all 0.15s;
 }
-.menu input[type*='button']:hover {
+.menu input[type*='submit']:hover {
   background-color: rgb(53, 53, 53);
   transition: all 0.15s;
 }
