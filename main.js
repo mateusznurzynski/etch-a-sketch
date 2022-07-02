@@ -1,19 +1,18 @@
 const container = document.querySelector('.container');
 const segment = document.createElement('div');
 const form = document.querySelector('.grid-edit');
-const COLOR_TEN_PERCENT = 255 / 10;
 segment.classList.add('segment');
-let segmentsNumber = 16;
+const DEFAULT_SEGMENTS_NUMBER = 16;
 let colorType = {
   value: 'black',
   mode: 'normal',
 };
-segment.style.width = `calc(100%/${segmentsNumber})`;
-segment.style.height = `calc(100%/${segmentsNumber})`;
+segment.style.width = `calc(100%/${DEFAULT_SEGMENTS_NUMBER})`;
+segment.style.height = `calc(100%/${DEFAULT_SEGMENTS_NUMBER})`;
 
 form.addEventListener('submit', submitForm);
 
-setGrid(segmentsNumber, 'black');
+setGrid(DEFAULT_SEGMENTS_NUMBER, 'black');
 
 function setGrid(segmentsNumber) {
   if (segmentsNumber > 100) {
@@ -68,6 +67,7 @@ function paintSegments() {
 }
 
 function setDarkerColor(e) {
+  const COLOR_TEN_PERCENT = 255 / 10;
   const currentColor = getComputedStyle(e.currentTarget).backgroundColor;
   console.log(currentColor);
   const cleanValues = extractRgbValues(currentColor);
