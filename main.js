@@ -1,11 +1,12 @@
 const container = document.querySelector('.container');
 const segment = document.createElement('div');
 const form = document.querySelector('.grid-edit');
+const COLOR_TEN_PERCENT = 255 / 10;
 segment.classList.add('segment');
 let segmentsNumber = 16;
 let colorType = {
   value: 'black',
-  type: 'normal',
+  mode: 'normal',
 };
 segment.style.width = `calc(100%/${segmentsNumber})`;
 segment.style.height = `calc(100%/${segmentsNumber})`;
@@ -49,17 +50,38 @@ function clearInputs(...inputs) {
 
 function paintSegments() {
   allSegments = document.querySelectorAll('.segment');
-  if (colorType.type === 'normal') {
+  if (colorType.mode === 'normal') {
     allSegments.forEach((segment) => {
       segment.addEventListener('mouseenter', (e) => {
         e.currentTarget.style.backgroundColor = colorType.value;
       });
     });
-  } else if (colorType.type === 'rainbow') {
+  } else if (colorType.mode === 'rainbow') {
     allSegments.forEach((segment) => {
       segment.addEventListener('mouseenter', setRandomColor);
     });
+  } else if (colorType.mode === 'darken') {
+    allSegments.forEach((segment) => {
+      segment.addEventListener('mouseenter', setDarkerColor);
+    });
   }
+}
+
+function setDarkerColor(e) {
+  const currentColor = getComputedStyle(e.currentTarget).backgroundColor;
+  console.log(currentColor);
+  const cleanValues = extractRgbValues(currentColor);
+  const newValues = cleanValues.map((e) => {
+    return e - COLOR_TEN_PERCENT;
+  });
+  e.currentTarget.style.backgroundColor = `rgb(${newValues[0]}, ${newValues[1]}, ${newValues[2]})`;
+}
+
+function extractRgbValues(rgbString) {
+  if (typeof rgbString !== 'string') {
+    return;
+  }
+  return rgbString.slice(4, rgbString.length - 1).split(', ');
 }
 
 function setRandomColor(e) {
@@ -87,9 +109,13 @@ function setColorType(inputs) {
     }
   });
   if (checkedValue === 'rainbow') {
-    colorType.type = checkedValue;
+    colorType.mode = checkedValue;
     return;
   }
-  colorType.type = 'normal';
+  if (checkedValue === 'darken') {
+    colorType.mode = checkedValue;
+    return;
+  }
+  colorType.mode = 'normal';
   colorType.value = checkedValue;
 }
