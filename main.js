@@ -36,7 +36,6 @@ function submitForm(e) {
   const sizeNumberInput = document.querySelector('#size-number');
   const colorTypeInputs = document.querySelectorAll('.color-type');
   setColorType(colorTypeInputs);
-  console.log(colorType);
   setGrid(sizeNumberInput.value);
   clearInputs(sizeNumberInput);
 }
@@ -67,9 +66,8 @@ function paintSegments() {
 }
 
 function setDarkerColor(e) {
-  const COLOR_TEN_PERCENT = 255 / 10;
+  const COLOR_TEN_PERCENT = 25.5; // 255 / 10
   const currentColor = getComputedStyle(e.currentTarget).backgroundColor;
-  console.log(currentColor);
   const cleanValues = extractRgbValues(currentColor);
   const newValues = cleanValues.map((e) => {
     return e - COLOR_TEN_PERCENT;
