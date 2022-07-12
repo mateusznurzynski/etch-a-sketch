@@ -79,7 +79,8 @@ function extractRgbValues(rgbString) {
   if (typeof rgbString !== 'string') {
     return;
   }
-  return rgbString.slice(4, rgbString.length - 1).split(', ');
+  const regex = /\d+/g;
+  return rgbString.match(regex);
 }
 
 function setRandomColor(e) {
