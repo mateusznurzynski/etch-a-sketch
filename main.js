@@ -88,11 +88,7 @@ function setRandomColor(e) {
     255
   )}, ${getRandomNumber(255)}, ${getRandomNumber(255)})`);
   colorType.value = randomColor;
-  allSegments.forEach((segment) => {
-    segment.addEventListener('mouseenter', (e) => {
-      e.currentTarget.style.backgroundColor = colorType.value;
-    });
-  });
+  e.currentTarget.style.backgroundColor = colorType.value;
 }
 
 function getRandomNumber(max) {
