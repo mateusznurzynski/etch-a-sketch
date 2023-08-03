@@ -1,8 +1,11 @@
 const container = document.querySelector('.container');
 const segment = document.createElement('div');
 const form = document.querySelector('.grid-edit');
+const sizeNumberInput = document.querySelector('#size-number');
+const colorTypeInputs = document.querySelectorAll('.color-type');
 segment.classList.add('segment');
 const DEFAULT_SEGMENTS_NUMBER = 16;
+sizeNumberInput.value = DEFAULT_SEGMENTS_NUMBER;
 let colorType = {
   value: 'black',
   mode: 'normal',
@@ -33,8 +36,6 @@ function setGrid(segmentsNumber) {
 
 function submitForm(e) {
   e.preventDefault();
-  const sizeNumberInput = document.querySelector('#size-number');
-  const colorTypeInputs = document.querySelectorAll('.color-type');
   setColorType(colorTypeInputs);
   setGrid(sizeNumberInput.value);
 }
