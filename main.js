@@ -37,13 +37,6 @@ function submitForm(e) {
   const colorTypeInputs = document.querySelectorAll('.color-type');
   setColorType(colorTypeInputs);
   setGrid(sizeNumberInput.value);
-  clearInputs(sizeNumberInput);
-}
-
-function clearInputs(...inputs) {
-  inputs.forEach((input) => {
-    input.value = '';
-  });
 }
 
 function paintSegments() {
